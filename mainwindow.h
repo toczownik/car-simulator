@@ -6,6 +6,8 @@
 #include <QLCDNumber>
 #include <QKeyEvent>
 
+#include "indicator.h"
+
 #define ACCELERATION 1
 
 class MainWindow : public QMainWindow {
@@ -14,18 +16,18 @@ public:
     MainWindow();
 
 protected:
-    void keyPressEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event) override;
+    void paintEvent(QPaintEvent *event) override;
+
 private:
-    QWidget *centralWidget;
     QLCDNumber *speedometer;
+    Indicator *indicator;
 
     int speed = 0;
     void changeSpeed(int increase);
 
-
-
 signals:
-    void speedChanged();
+    void switchLights();
 };
 
 #endif //CAR_MAINWINDOW_H
