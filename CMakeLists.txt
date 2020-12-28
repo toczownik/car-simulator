@@ -9,9 +9,9 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 find_package(Qt5 COMPONENTS Widgets Charts Quick Core Network REQUIRED)
 
-set(project_headers mainwindow.h indicator.h)
+set(project_headers mainwindow.h indicator.h meter.h)
 
-set(project_sources mainwindow.cpp indicator.cpp)
+set(project_sources mainwindow.cpp indicator.cpp meter.cpp)
 
 qt5_add_resources(RESOURCES resources.qrc)
 

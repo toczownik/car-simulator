@@ -1,6 +1,6 @@
 #include "indicator.h"
 
-Indicator::Indicator(const QString &onPath, const QString &offPath) {
+Indicator::Indicator(QWidget *parent, const QString &onPath, const QString &offPath) : QWidget(parent) {
     on = false;
     onImg = new QPixmap(onPath);
     offImg = new QPixmap(offPath);
@@ -15,10 +15,11 @@ void Indicator::paintEvent(QPaintEvent *event) {
     if (on) {
         painter.drawPixmap(0,0, *onImg);
     } else {
-        painter.drawPixmap(0, 0, *offImg);
+        //painter.drawPixmap(0, 0, *offImg);
     }
 }
 
 void Indicator::switchState() {
     on = !on;
+    update();
 }

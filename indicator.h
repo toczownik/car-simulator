@@ -8,7 +8,7 @@
 class Indicator : public QWidget {
     Q_OBJECT
 public:
-    Indicator(const QString &onPath, const QString &offPath);
+    Indicator(QWidget *parent, const QString &onPath, const QString &offPath);
 
 protected:
     void paintEvent(QPaintEvent *event) override;

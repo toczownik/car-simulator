@@ -20,14 +20,19 @@ protected:
     void paintEvent(QPaintEvent *event) override;
 
 private:
-    QLCDNumber *speedometer;
     Indicator *indicator;
 
-    int speed = 0;
-    void changeSpeed(int increase);
+    bool canAccelerate;
+    bool canDecelerate;
+
+public slots:
+    void interruptAcceleration();
+    void interruptDeceleration();
 
 signals:
     void switchLights();
+    void acceleration();
+    void deceleration();
 };
 
 #endif //CAR_MAINWINDOW_H

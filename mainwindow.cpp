@@ -1,43 +1,55 @@
 #include "mainwindow.h"
+#include "meter.h"
 
-#include <QVBoxLayout>
 #include <QSizePolicy>
 #include <QHBoxLayout>
 #include <QResource>
 
-MainWindow::MainWindow() {
+MainWindow::MainWindow() : canAccelerate(true), canDecelerate(true) {
     setWindowTitle("Car Simulator");
 
     auto *centralWidget = new QWidget(this);
     setCentralWidget(centralWidget);
 
-    auto *centralLayout = new QVBoxLayout(centralWidget);
+    auto *centralLayout = new QHBoxLayout(centralWidget);
     centralWidget->setLayout(centralLayout);
 
     auto *indicatorsWidget = new QWidget(centralWidget);
     auto *indicatorsLayout = new QHBoxLayout(indicatorsWidget);
     indicatorsWidget->setLayout(indicatorsLayout);
 
-    indicator = new Indicator(":/assets/scared.png", ":/assets/scared.png");
-    indicatorsLayout->addWidget(indicator);
-    connect(this, SIGNAL(switchLights()), indicator, SLOT(switchState()));
+    indicator = new Indicator(indicatorsWidget, ":/assets/scared.png", ":/assets/scared.png");
+    connect(this, &MainWindow::switchLights, indicator, &Indicator::switchState);
     centralLayout->addWidget(indicatorsWidget);
 
-    speedometer = new QLCDNumber(centralWidget);
-    speedometer->setStyleSheet("background-color:black; color:white");
+    auto speedometer = new Meter(centralWidget, 0, 200, 1, 1, ":/assets/speedometer.png");
     centralLayout->addWidget(speedometer);
-    speedometer->display(speed);
+    connect(this, &MainWindow::deceleration, speedometer, &Meter::decreaseValue);
+    connect(this, &MainWindow::acceleration, speedometer, &Meter::increaseValue);
 
-    //setMinimumSize(640, 480);
+    auto tachometer = new Meter(centralWidget, 1000, 5000, 200, 7, ":/assets/speedometer.png");
+    centralLayout->addWidget(tachometer);
+    connect(this, &MainWindow::deceleration, tachometer, &Meter::decreaseValue);
+    connect(this, &MainWindow::acceleration, tachometer, &Meter::increaseValue);
+    connect(tachometer, &Meter::impossibleAcceleration, this, &MainWindow::interruptAcceleration);
+    connect(tachometer, &Meter::impossibleDeceleration, this, &MainWindow::interruptDeceleration);
+
+    setMinimumSize(640, 480);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event) {
     switch (event->key()) {
         case Qt::Key_Up:
-            changeSpeed(ACCELERATION);
+            if (canAccelerate) {
+                emit(acceleration());
+                canDecelerate = true;
+            }
             break;
         case Qt::Key_Down:
-            changeSpeed(-ACCELERATION);
+            if (canDecelerate) {
+                emit(deceleration());
+                canAccelerate = true;
+            }
             break;
         case Qt::Key_Q:
             emit(switchLights());
@@ -48,15 +60,14 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
 }
 
 void MainWindow::paintEvent(QPaintEvent *event) {
-    QPainter painter;
     setPalette(QPalette(Qt::black));
     setAutoFillBackground(true);
 }
 
-void MainWindow::changeSpeed(int increase) {
-    speed += increase;
-    if (speed < 0) {
-        speed = 0;
-    }
-    speedometer->display(speed);
+void MainWindow::interruptAcceleration() {
+    canAccelerate = false;
+}
+
+void MainWindow::interruptDeceleration() {
+    canDecelerate = false;
 }
