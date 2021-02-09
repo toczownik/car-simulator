@@ -13,9 +13,6 @@ Meter::Meter(QWidget *parent, const unsigned int minValue, const unsigned int ma
 };
 
 void Meter::paintEvent(QPaintEvent *event) {
-    setPalette(QPalette(Qt::yellow));
-    setAutoFillBackground(true);
-
     QPainter painter(this);
 
     if (background) {

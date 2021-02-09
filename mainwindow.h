@@ -20,18 +20,28 @@ protected:
     void paintEvent(QPaintEvent *event) override;
 
 private:
-    Indicator *indicator;
-
     bool canAccelerate;
     bool canDecelerate;
+    bool fuelLow;
+    bool turningLeft;
+    bool turningRight;
+    int fuel;
 
 public slots:
     void interruptAcceleration();
     void interruptDeceleration();
 
 signals:
-    void switchLights();
-    void acceleration();
+    void turnLeft();
+    void turnRight();
+    void conditioning();
+    void hazard();
+    void switchHigh();
+    void switchLow();
+    void parking();
+    void seatbelt();
+    void lowFuel();
+    void acceleration(int newFuel);
     void deceleration();
 };
 

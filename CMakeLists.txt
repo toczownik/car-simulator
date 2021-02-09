@@ -9,13 +9,13 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 find_package(Qt5 COMPONENTS Widgets Charts Quick Core Network REQUIRED)
 
-set(project_headers mainwindow.h indicator.h meter.h)
-
-set(project_sources mainwindow.cpp indicator.cpp meter.cpp)
+set(MAINWINDOW mainwindow.h mainwindow.cpp)
+set(INDICATOR indicator.h indicator.cpp)
+set(METER meter.h meter.cpp)
 
 qt5_add_resources(RESOURCES resources.qrc)
 
-add_executable(car main.cpp ${project_headers} ${project_sources} ${RESOURCES})
+add_executable(car main.cpp ${MAINWINDOW} ${INDICATOR} ${METER} ${RESOURCES})
 qt5_use_modules(car Quick Core Network)
 
 target_link_libraries(car Qt5::Widgets)

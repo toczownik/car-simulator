@@ -8,7 +8,7 @@
 class Indicator : public QWidget {
     Q_OBJECT
 public:
-    Indicator(QWidget *parent, const QString &onPath, const QString &offPath);
+    Indicator(QWidget *parent, const QString &onPath);
 
 protected:
     void paintEvent(QPaintEvent *event) override;
@@ -16,7 +16,6 @@ protected:
 private:
     bool on;
     const QPixmap *onImg;
-    const QPixmap *offImg;
 
 public slots:
     void switchState();
