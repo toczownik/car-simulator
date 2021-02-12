@@ -8,6 +8,11 @@
 
 #include "indicator.h"
 
+<<<<<<< HEAD
+=======
+#define ACCELERATION 1
+
+>>>>>>> 07d5cd0ae9622e969e3f723e3241efb88059f230
 class MainWindow : public QMainWindow {
     Q_OBJECT
 public:

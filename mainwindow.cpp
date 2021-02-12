@@ -4,12 +4,19 @@
 #include <QSizePolicy>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+<<<<<<< HEAD
 #include <QPushButton>
 #include <QProgressBar>
 #include <QLabel>
 #include <QSlider>
 #include <QTableWidget>
 #include <QHeaderView>
+=======
+#include <QResource>
+#include <QPushButton>
+#include <QProgressBar>
+#include <QLabel>
+>>>>>>> 07d5cd0ae9622e969e3f723e3241efb88059f230
 
 #define MAX_FUEL 1000
 #define INITIAL_FUEL MAX_FUEL/2
@@ -38,6 +45,10 @@ MainWindow::MainWindow() : canAccelerate(true), canDecelerate(true), fuelLow(fal
     auto fuelIndicator = new Indicator(indicatorsWidget, ":/assets/fuel.png");
     connect(this, &MainWindow::turnLeft, leftIndicator, &Indicator::switchState);
     connect(this, &MainWindow::turnRight, rightIndicator, &Indicator::switchState);
+<<<<<<< HEAD
+=======
+    connect(this, &MainWindow::conditioning, conditioningIndicator, &Indicator::switchState);
+>>>>>>> 07d5cd0ae9622e969e3f723e3241efb88059f230
     connect(this, &MainWindow::hazard, hazardIndicator, &Indicator::switchState);
     connect(this, &MainWindow::switchHigh, highBeamIndicator, &Indicator::switchState);
     connect(this, &MainWindow::switchLow, lowBeamIndicator, &Indicator::switchState);
@@ -69,6 +80,10 @@ MainWindow::MainWindow() : canAccelerate(true), canDecelerate(true), fuelLow(fal
     fuelWidget->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
     auto fuelWidgetLayout = new QVBoxLayout(fuelWidget);
     auto fuelBar = new QProgressBar(fuelWidget);
+<<<<<<< HEAD
+=======
+    //fuelWidget->setTextDirection(QProgressBar::BottomToTop);
+>>>>>>> 07d5cd0ae9622e969e3f723e3241efb88059f230
     fuelBar->setOrientation(Qt::Vertical);
     fuelBar->setRange(0, MAX_FUEL);
     fuel = INITIAL_FUEL;
@@ -93,6 +108,7 @@ MainWindow::MainWindow() : canAccelerate(true), canDecelerate(true), fuelLow(fal
     middle->setWindowTitle("Middle Board");
     auto middleLayout = new QVBoxLayout(middle);
     middle->setLayout(middleLayout);
+<<<<<<< HEAD
     auto menu = new QWidget(middle);
     auto menuLayout = new QGridLayout(menu);
     middleLayout->addWidget(menu);
@@ -200,6 +216,10 @@ MainWindow::MainWindow() : canAccelerate(true), canDecelerate(true), fuelLow(fal
     airConditioning->hide();
     connect(airConditioningButton, &QPushButton::clicked, airConditioning, &QWidget::show);
 
+=======
+    auto radioOn = new QPushButton(middle);
+    middleLayout->addWidget(radioOn);
+>>>>>>> 07d5cd0ae9622e969e3f723e3241efb88059f230
     middle->show();
 }
 
@@ -245,7 +265,11 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
                 emit(turnRight());
                 turningRight = false;
             }
+<<<<<<< HEAD
             turningLeft = !turningLeft;
+=======
+            turningLeft = true;
+>>>>>>> 07d5cd0ae9622e969e3f723e3241efb88059f230
             emit(turnLeft());
             break;
         case Qt::Key_Right:
@@ -253,7 +277,11 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
                 emit(turnLeft());
                 turningLeft = false;
             }
+<<<<<<< HEAD
             turningRight = !turningRight;
+=======
+            turningRight = true;
+>>>>>>> 07d5cd0ae9622e969e3f723e3241efb88059f230
             emit(turnRight());
             break;
         default:
