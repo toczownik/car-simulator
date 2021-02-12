@@ -1,22 +1,16 @@
 #include "mainwindow.h"
 #include "meter.h"
+#include "musicplayer.h"
 
 #include <QSizePolicy>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-<<<<<<< HEAD
 #include <QPushButton>
 #include <QProgressBar>
 #include <QLabel>
 #include <QSlider>
 #include <QTableWidget>
 #include <QHeaderView>
-=======
-#include <QResource>
-#include <QPushButton>
-#include <QProgressBar>
-#include <QLabel>
->>>>>>> 07d5cd0ae9622e969e3f723e3241efb88059f230
 
 #define MAX_FUEL 1000
 #define INITIAL_FUEL MAX_FUEL/2
@@ -45,10 +39,6 @@ MainWindow::MainWindow() : canAccelerate(true), canDecelerate(true), fuelLow(fal
     auto fuelIndicator = new Indicator(indicatorsWidget, ":/assets/fuel.png");
     connect(this, &MainWindow::turnLeft, leftIndicator, &Indicator::switchState);
     connect(this, &MainWindow::turnRight, rightIndicator, &Indicator::switchState);
-<<<<<<< HEAD
-=======
-    connect(this, &MainWindow::conditioning, conditioningIndicator, &Indicator::switchState);
->>>>>>> 07d5cd0ae9622e969e3f723e3241efb88059f230
     connect(this, &MainWindow::hazard, hazardIndicator, &Indicator::switchState);
     connect(this, &MainWindow::switchHigh, highBeamIndicator, &Indicator::switchState);
     connect(this, &MainWindow::switchLow, lowBeamIndicator, &Indicator::switchState);
@@ -80,10 +70,6 @@ MainWindow::MainWindow() : canAccelerate(true), canDecelerate(true), fuelLow(fal
     fuelWidget->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
     auto fuelWidgetLayout = new QVBoxLayout(fuelWidget);
     auto fuelBar = new QProgressBar(fuelWidget);
-<<<<<<< HEAD
-=======
-    //fuelWidget->setTextDirection(QProgressBar::BottomToTop);
->>>>>>> 07d5cd0ae9622e969e3f723e3241efb88059f230
     fuelBar->setOrientation(Qt::Vertical);
     fuelBar->setRange(0, MAX_FUEL);
     fuel = INITIAL_FUEL;
@@ -108,7 +94,6 @@ MainWindow::MainWindow() : canAccelerate(true), canDecelerate(true), fuelLow(fal
     middle->setWindowTitle("Middle Board");
     auto middleLayout = new QVBoxLayout(middle);
     middle->setLayout(middleLayout);
-<<<<<<< HEAD
     auto menu = new QWidget(middle);
     auto menuLayout = new QGridLayout(menu);
     middleLayout->addWidget(menu);
@@ -116,6 +101,7 @@ MainWindow::MainWindow() : canAccelerate(true), canDecelerate(true), fuelLow(fal
     auto musicButton = new QPushButton(menu);
     musicButton->setText("MUSIC");
     menuLayout->addWidget(musicButton, 0, 0);
+    connect(musicButton, &QPushButton::clicked, menu, &QWidget::hide);
     auto mapButton = new QPushButton(menu);
     mapButton->setText("MAP");
     menuLayout->addWidget(mapButton, 0, 1);
@@ -132,8 +118,17 @@ MainWindow::MainWindow() : canAccelerate(true), canDecelerate(true), fuelLow(fal
     connect(airConditioningButton, &QPushButton::clicked, menu, &QWidget::hide);
     menuLayout->addWidget(airConditioningButton, 1, 1);
 
-    auto music = new QWidget(middle);
+    auto music = new QWidget(this);
+    auto musicPlayer = new MusicPlayer(music);
     middleLayout->addWidget(music);
+    auto musicLayout = new QVBoxLayout(music);
+    music->setLayout(musicLayout);
+    musicLayout->addWidget(musicPlayer);
+    auto musicExit = new QPushButton(music);
+    musicExit->setText("RETURN");
+    musicLayout->addWidget(musicExit);
+    connect(musicExit, &QPushButton::clicked, menu, &QWidget::show);
+    connect(musicButton, &QPushButton::clicked, music, &QWidget::show);
     music->hide();
 
     auto bluetooth = new QWidget(middle);
@@ -141,8 +136,6 @@ MainWindow::MainWindow() : canAccelerate(true), canDecelerate(true), fuelLow(fal
     bluetooth->setLayout(bluetoothLayout);
     connect(bluetoothButton, &QPushButton::clicked, bluetooth, &QWidget::show);
     auto bluetoothTable = new QTableWidget(2, 2, bluetooth);
-
-    //bluetoothTable->setFixedSize(1, 100);
     auto devicesHeader = new QTableWidgetItem("Detected Devices");
     bluetoothTable->setHorizontalHeaderItem(0, devicesHeader);
     auto connectionHeader = new QTableWidgetItem("Connection");
@@ -216,10 +209,6 @@ MainWindow::MainWindow() : canAccelerate(true), canDecelerate(true), fuelLow(fal
     airConditioning->hide();
     connect(airConditioningButton, &QPushButton::clicked, airConditioning, &QWidget::show);
 
-=======
-    auto radioOn = new QPushButton(middle);
-    middleLayout->addWidget(radioOn);
->>>>>>> 07d5cd0ae9622e969e3f723e3241efb88059f230
     middle->show();
 }
 
@@ -265,11 +254,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
                 emit(turnRight());
                 turningRight = false;
             }
-<<<<<<< HEAD
             turningLeft = !turningLeft;
-=======
-            turningLeft = true;
->>>>>>> 07d5cd0ae9622e969e3f723e3241efb88059f230
             emit(turnLeft());
             break;
         case Qt::Key_Right:
@@ -277,11 +262,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
                 emit(turnLeft());
                 turningLeft = false;
             }
-<<<<<<< HEAD
             turningRight = !turningRight;
-=======
-            turningRight = true;
->>>>>>> 07d5cd0ae9622e969e3f723e3241efb88059f230
             emit(turnRight());
             break;
         default:

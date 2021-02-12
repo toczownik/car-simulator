@@ -1,6 +1,6 @@
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
 
 CONFIG += c++11
 
@@ -12,12 +12,14 @@ SOURCES += \
     indicator.cpp \
     main.cpp \
     mainwindow.cpp \
-    meter.cpp
+    meter.cpp \
+    musicplayer.cpp
 
 HEADERS += \
     indicator.h \
     mainwindow.h \
-    meter.h
+    meter.h \
+    musicplayer.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

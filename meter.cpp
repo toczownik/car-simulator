@@ -56,8 +56,4 @@ void Meter::decreaseValue() {
     } else if (level <= 1 && (value - increase <= min)) emit(impossibleDeceleration());
     value -= increase;
     update();
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 07d5cd0ae9622e969e3f723e3241efb88059f230

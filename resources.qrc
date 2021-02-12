@@ -1,5 +1,5 @@
-<!DOCTYPE RCC><RCC version="1.0">
-    <qresource>
+<RCC>
+    <qresource prefix="/">
         <file>assets/speedometer.png</file>
         <file>assets/tachometer.png</file>
         <file>assets/air-conditioning.png</file>
@@ -11,6 +11,6 @@
         <file>assets/right.png</file>
         <file>assets/seatbelt.png</file>
         <file>assets/hazard.png</file>
+        <file>music/Luis Fonsi - Despacito ft. Daddy Yankee.mp3</file>
     </qresource>
 </RCC>
-

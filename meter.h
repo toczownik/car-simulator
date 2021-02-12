@@ -3,10 +3,6 @@
 
 #include <QWidget>
 
-<<<<<<< HEAD
-=======
-//use qwt
->>>>>>> 07d5cd0ae9622e969e3f723e3241efb88059f230
 class Meter : public QWidget {
     Q_OBJECT
 public:
