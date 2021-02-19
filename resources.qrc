@@ -11,6 +11,7 @@
         <file>assets/right.png</file>
         <file>assets/seatbelt.png</file>
         <file>assets/hazard.png</file>
-        <file>music/Luis Fonsi - Despacito ft. Daddy Yankee.mp3</file>
+        <file>music/Despacito.mp3</file>
+        <file>map.qml</file>
     </qresource>
 </RCC>

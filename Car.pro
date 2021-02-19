@@ -1,6 +1,6 @@
-QT       += core gui
+QT       += core gui multimedia
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets quickwidgets
 
 CONFIG += c++11
 
@@ -12,12 +12,14 @@ SOURCES += \
     indicator.cpp \
     main.cpp \
     mainwindow.cpp \
+    map.cpp \
     meter.cpp \
     musicplayer.cpp
 
 HEADERS += \
     indicator.h \
     mainwindow.h \
+    map.h \
     meter.h \
     musicplayer.h
 
@@ -28,3 +30,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resources.qrc
+
+DISTFILES +=

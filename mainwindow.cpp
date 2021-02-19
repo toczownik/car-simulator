@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "meter.h"
 #include "musicplayer.h"
+#include "map.h"
 
 #include <QSizePolicy>
 #include <QHBoxLayout>
@@ -92,6 +93,8 @@ MainWindow::MainWindow() : canAccelerate(true), canDecelerate(true), fuelLow(fal
 
     auto middle = new QWidget;
     middle->setWindowTitle("Middle Board");
+    middle->setStyleSheet("background-color:black; color:white");
+    middle->setFixedSize(500, 300);
     auto middleLayout = new QVBoxLayout(middle);
     middle->setLayout(middleLayout);
     auto menu = new QWidget(middle);
@@ -102,12 +105,13 @@ MainWindow::MainWindow() : canAccelerate(true), canDecelerate(true), fuelLow(fal
     musicButton->setText("MUSIC");
     menuLayout->addWidget(musicButton, 0, 0);
     connect(musicButton, &QPushButton::clicked, menu, &QWidget::hide);
-    auto mapButton = new QPushButton(menu);
+    /*auto mapButton = new QPushButton(menu);
     mapButton->setText("MAP");
     menuLayout->addWidget(mapButton, 0, 1);
+    connect(mapButton, &QPushButton::clicked, menu, &QWidget::hide);*/
     auto bluetoothButton = new QPushButton(menu);
     bluetoothButton->setText("BLUETOOTH");
-    menuLayout->addWidget(bluetoothButton, 0, 2);
+    menuLayout->addWidget(bluetoothButton, 0, 1);
     connect(bluetoothButton, &QPushButton::clicked, menu, &QWidget::hide);
     auto settingsButton = new QPushButton(menu);
     settingsButton->setText("SETTINGS");
@@ -128,14 +132,21 @@ MainWindow::MainWindow() : canAccelerate(true), canDecelerate(true), fuelLow(fal
     musicExit->setText("RETURN");
     musicLayout->addWidget(musicExit);
     connect(musicExit, &QPushButton::clicked, menu, &QWidget::show);
+    connect(musicExit, &QPushButton::clicked, music, &QWidget::hide);
     connect(musicButton, &QPushButton::clicked, music, &QWidget::show);
     music->hide();
+
+    auto map = new Map(this);
+    connect(map->returnButton, &QPushButton::clicked, menu, &QWidget::show);
+    middleLayout->addWidget(map);
 
     auto bluetooth = new QWidget(middle);
     auto bluetoothLayout = new QVBoxLayout(bluetooth);
     bluetooth->setLayout(bluetoothLayout);
     connect(bluetoothButton, &QPushButton::clicked, bluetooth, &QWidget::show);
     auto bluetoothTable = new QTableWidget(2, 2, bluetooth);
+    bluetoothTable->horizontalHeader()->setStyleSheet("QHeaderView::section{color:black; background-color:white}");
+    bluetoothTable->verticalHeader()->setVisible(false);
     auto devicesHeader = new QTableWidgetItem("Detected Devices");
     bluetoothTable->setHorizontalHeaderItem(0, devicesHeader);
     auto connectionHeader = new QTableWidgetItem("Connection");
